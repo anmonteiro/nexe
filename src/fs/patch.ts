@@ -27,8 +27,7 @@ function shimFs(binary: NexeBinary, fs: any = require('fs')) {
     isWin = process.platform.startsWith('win'),
     isString = (x: any): x is string => typeof x === 'string' || x instanceof String,
     noop = () => {},
-    path = require('path'),
-    baseDir = path.dirname(process.execPath)
+    path = require('path')
 
   let log = (_: string) => true
   if ((process.env.DEBUG || '').toLowerCase().includes('nexe:require')) {
@@ -42,7 +41,7 @@ function shimFs(binary: NexeBinary, fs: any = require('fs')) {
     if (!isString(filepath)) {
       return notAFile
     }
-    let key = path.resolve(baseDir, filepath)
+    let key = path.resolve(filepath)
 
     if (isWin && key.substr(1, 2) === ':\\') {
       key = key[0].toUpperCase() + key.substr(1)
